@@ -17,7 +17,6 @@ const [age,setage] = useState();
 const [phone,setphone] = useState();
 const [err,seterr] = useState();
 
-localStorage.setItem('err',err);
 const uimg = (data)=>
 {
   const imgsrc = localStorage.getItem('image');
@@ -28,7 +27,6 @@ const uimg = (data)=>
   {
    setimg(data);
   }
-
   }
 const uname =(data)=>
 {
@@ -82,7 +80,6 @@ console.log('mobile')
     setphone(data);
    }  
 }
-let error = localStorage.getItem('err');
 useEffect(()=>
 {
   const imgsrc = localStorage.getItem('image');
@@ -98,22 +95,25 @@ useEffect(()=>
 
   if(imgsrc === ''||name === ''||mail === ''||age === ''|| mobile === '')
   {
-    seterr(0);
+    seterr(1);
+    localStorage.setItem('value',err);
   }
   else
   {
-    seterr(1)
+    seterr(0)
+    localStorage.setItem('value',err);
   }
   if(imgsrc === '')
   {
     setimg(Profilepic);
     localStorage.setItem('image',Profilepic)
   }
+  console.log(localStorage.getItem('value'))
 })
 
   return (
     <>
-      <div className={err===1?'hide':'display'}>
+      <div className={localStorage.getItem('value')===0?'hide':'display'}>
       <Form imageSrc={uimg} Name={uname} Email={uemail} Age={uage} Phone={uphoneno}/>
       </div>
       <Header img={img} name={name} email={email} age={age} phone={phone}/>

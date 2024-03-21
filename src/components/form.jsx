@@ -14,7 +14,6 @@ const form = ({imageSrc,Name,Email,Phone,Age}) => {
   const [check,setcheck] = useState(false);
   const [active,setactive] = useState(false);
  
-let error = localStorage.getItem('err');
 
   const handleUpload = (e) =>
   {
@@ -24,8 +23,8 @@ let error = localStorage.getItem('err');
     Phone(phone);
     Age(age);
     setactive(true);
-    console.log('clicked')
-    
+    console.log('clicked');
+    localStorage.setItem('value',0);
   }
   const handlename = (e) =>
   {
@@ -67,7 +66,7 @@ console.log('working')
   }
   useEffect(()=>
   {
-    if(!usname || !age || !email || !phone || !check)
+    if(!usname || !age || !email || !phone || !check || !storeImg)
     {
      setdisable(true);
     }

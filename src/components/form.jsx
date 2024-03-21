@@ -93,7 +93,7 @@ const getImg =(e)=>
   }
   return (
 <>
-    <div className={active===true?'hide':'form'}>
+    <div className={localStorage.getItem('value')===0?'hide':'form'}>
 
       <form onSubmit={handleUpload}>
 

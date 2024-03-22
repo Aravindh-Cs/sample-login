@@ -5,7 +5,7 @@ import Home from './components/home';
 import Games from './components/card';
 import Form from './components/form';
 import './index.css';
-import { Route,Routes } from 'react-router-dom';
+import { Route,Routes} from 'react-router-dom';
 import Profilepic from './images/profile-pic.png'
 
 const App = () => {
@@ -16,6 +16,7 @@ const [email,setemail] = useState();
 const [age,setage] = useState();
 const [phone,setphone] = useState();
 const [err,seterr] = useState();
+const [login,setlogin] = useState(false);
 
 const uimg = (data)=>
 {
@@ -26,6 +27,7 @@ const uimg = (data)=>
   } else if(imgsrc === '')
   {
    setimg(data);
+   setlogin(true)
   }
   }
 const uname =(data)=>
@@ -36,9 +38,8 @@ const uname =(data)=>
     setuname(name);
   }else if(name === '')
   {
-
-  }else{
     setuname(data);
+    setlogin(true)
   }
 }
 const uemail =(data)=>
@@ -49,8 +50,8 @@ const uemail =(data)=>
     setemail(mail);
   }else if(mail === '')
   {
-  }else{
     setemail(data)
+    setlogin(true)
   }
 }
 const uage =(data)=>
@@ -61,9 +62,8 @@ const age = localStorage.getItem('age');
    setage(age);
   }else if(age === '')
   {
-  }
-  else{
     setage(data);
+    setlogin(true)
   }
 }
 const uphoneno = (data) =>
@@ -74,10 +74,8 @@ const mobile = localStorage.getItem('phone');
    setphone(mobile);
   }else if(mobile === '')
   {
-console.log('mobile')
-  }
-  else{
     setphone(data);
+    setlogin(true)
    }  
 }
 useEffect(()=>
@@ -108,12 +106,12 @@ useEffect(()=>
     setimg(Profilepic);
     localStorage.setItem('image',Profilepic)
   }
-  console.log(localStorage.getItem('value'))
+  console.log('app',localStorage.getItem('value'))
 })
 
   return (
     <>
-      <div className={localStorage.getItem('value')===0?'hide':'display'}>
+      <div className={localStorage.getItem('value')===1?'display':'hide'}>
       <Form imageSrc={uimg} Name={uname} Email={uemail} Age={uage} Phone={uphoneno}/>
       </div>
       <Header img={img} name={name} email={email} age={age} phone={phone}/>

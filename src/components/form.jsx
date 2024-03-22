@@ -14,6 +14,7 @@ const form = ({imageSrc,Name,Email,Phone,Age}) => {
   const [check,setcheck] = useState(false);
   const [active,setactive] = useState(false);
  
+  localStorage.setItem('value',1);
 
   const handleUpload = (e) =>
   {
@@ -25,6 +26,7 @@ const form = ({imageSrc,Name,Email,Phone,Age}) => {
     setactive(true);
     console.log('clicked');
     localStorage.setItem('value',0);
+    console.log(localStorage.getItem('value'))
   }
   const handlename = (e) =>
   {

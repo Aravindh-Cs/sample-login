@@ -10,96 +10,36 @@ import Profilepic from './images/profile-pic.png'
 
 const App = () => {
   
-const [img,setimg] = useState(Profilepic);
+const [img,setimg] = useState();
 const [name,setuname] = useState();
 const [email,setemail] = useState();
 const [age,setage] = useState();
 const [phone,setphone] = useState();
-const [err,seterr] = useState();
-const [login,setlogin] = useState(false);
+const [err,seterr] = useState(null)
 
-const uimg = (data)=>
-{
-  const imgsrc = localStorage.getItem('image');
-  if(imgsrc)
-  {
-    setimg(imgsrc)
-  } else if(imgsrc === '')
-  {
-   setimg(data);
-   setlogin(true)
-  }
-  }
-const uname =(data)=>
-{
-  const name = localStorage.getItem('name');
-  if(name)
-  {
-    setuname(name);
-  }else if(name === '')
-  {
-    setuname(data);
-    setlogin(true)
-  }
-}
-const uemail =(data)=>
-{
-  const mail = localStorage.getItem('email');
-  if(mail)
-  {
-    setemail(mail);
-  }else if(mail === '')
-  {
-    setemail(data)
-    setlogin(true)
-  }
-}
-const uage =(data)=>
-{
-const age = localStorage.getItem('age');
-  if(age)
-  {
-   setage(age);
-  }else if(age === '')
-  {
-    setage(data);
-    setlogin(true)
-  }
-}
-const uphoneno = (data) =>
-{
-const mobile = localStorage.getItem('phone');
-  if(mobile)
-  {
-   setphone(mobile);
-  }else if(mobile === '')
-  {
-    setphone(data);
-    setlogin(true)
-   }  
-}
+const imgsrc = localStorage.getItem('image');
+const getname = localStorage.getItem('name');
+const getmail = localStorage.getItem('email');
+const getage = localStorage.getItem('age');
+const getmobile = localStorage.getItem('phone');
+
 useEffect(()=>
 {
-  const imgsrc = localStorage.getItem('image');
-  setimg(imgsrc);
-  const name = localStorage.getItem('name');
-  setuname(name);
-  const mail = localStorage.getItem('email');
-  setemail(mail);
-  const age = localStorage.getItem('age');
-  setage(age);
-  const mobile = localStorage.getItem('phone');
-  setphone(mobile);
 
-  if(imgsrc === ''||name === ''||mail === ''||age === ''|| mobile === '')
+  if(imgsrc === ''||getname === ''||getmail === ''||age === ''|| mobile === '')
   {
-    seterr(1);
-    localStorage.setItem('value',err);
+    localStorage.setItem('value',1);
+    seterr(false);
   }
   else
   {
-    seterr(0)
-    localStorage.setItem('value',err);
+    setimg(imgsrc);
+    setuname(getname);
+    setage(getage);
+    setemail(getmail);
+    setphone(getmobile);
+    localStorage.setItem('value',0);
+    seterr(true)
   }
   if(imgsrc === '')
   {
@@ -111,9 +51,10 @@ useEffect(()=>
 
   return (
     <>
-      <div className={localStorage.getItem('value')===1?'display':'hide'}>
-      <Form imageSrc={uimg} Name={uname} Email={uemail} Age={uage} Phone={uphoneno}/>
+      <div>
+      <Form/>
       </div>
+      {err===true?<>
       <Header img={img} name={name} email={email} age={age} phone={phone}/>
       <div className='main'>
         <Routes>
@@ -121,7 +62,7 @@ useEffect(()=>
         <Route path='/games' Component={Games}></Route>
         <Route path='/link' Component={Home}></Route>
       </Routes>
-    </div>
+    </div></>:''}
     </>
   );
 };

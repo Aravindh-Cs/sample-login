@@ -4,7 +4,7 @@ import Profilepic from '../images/profile-pic.png';
 import { useState} from 'react';
 import './style.css'
 
-const form = ({imageSrc,Name,Email,Phone,Age}) => {
+const form = () => {
   const [usname,setuserName] = useState();
   const [email,setemail] = useState();
   const [age,setage] = useState();
@@ -14,19 +14,16 @@ const form = ({imageSrc,Name,Email,Phone,Age}) => {
   const [check,setcheck] = useState(false);
   const [active,setactive] = useState(false);
  
-  localStorage.setItem('value',1);
 
   const handleUpload = (e) =>
   {
     e.preventDefault();
-    Name(usname);
-    Email(email);
-    Phone(phone);
-    Age(age);
     setactive(true);
-    console.log('clicked');
-    localStorage.setItem('value',0);
-    console.log(localStorage.getItem('value'))
+    localStorage.getItem('image',storeImg);
+    localStorage.getItem('name',usname);
+    localStorage.getItem('email',email);
+    localStorage.getItem('age',age);
+    localStorage.getItem('phone',phone);
   }
   const handlename = (e) =>
   {
@@ -95,7 +92,7 @@ const getImg =(e)=>
   }
   return (
 <>
-    <div className={localStorage.getItem('value')===0?'hide':'form'}>
+    <div className={active?'hide':'form'}>
 
       <form onSubmit={handleUpload}>
 
